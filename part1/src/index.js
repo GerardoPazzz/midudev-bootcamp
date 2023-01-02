@@ -1,35 +1,38 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from "react";
+import ReactDOM from "react-dom";
+import { useState } from "react";
 
-const Title = (props)=>{
-  return <h1>{props.course}</h1>
-}
-/* const Title = ({course})=> <h1>{course}</h1> */
+const rootElement = document.getElementById("root");
 
-const App = () => {
-  const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
+const Counter =({number}) => {
+  return <h1>{number}</h1>;
+  };
 
+
+const App = (props) => {
+  const [contador, setContador] = useState(0); //devuelve un array[1]
+  
+  const handleClick = () => {
+    setContador(contador + 1);
+  };
+
+  const handleClickReset = () => {
+    setContador(0);
+  }
+
+  const isEven = contador %  2 === 0
+
+  const mensajePar = isEven?"Es par": "Es impar"; 
+  
   return (
     <div>
-      <Title course={course}/>
-      <p>
-        {part1} {exercises1}
-      </p>
-      <p>
-        {part2} {exercises2}
-      </p>
-      <p>
-        {part3} {exercises3}
-      </p>
-      <p>Number of exercises {exercises1 + exercises2 + exercises3}</p>
+      <p>El valor del contador es: </p>
+      <Counter number={contador}/>
+      <p>{mensajePar}</p>
+      <button onClick={handleClick}>Aumentar</button>
+      <button onClick={handleClickReset}>Resetear</button>
     </div>
-  )
-}
+  );
+};
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />, rootElement);
